@@ -3,25 +3,33 @@ function getEle(ele) {
 }
 var main=getEle("#main");
 
-(function(){
-    var music = document.getElementById("music"), audio = document.getElementById("audio");
+~function () {
+    var music = document.getElementById("music"), audioFir = document.getElementById("audioFir");
+
+    //->给页面的加载缓冲500MS时间
     window.setTimeout(function () {
-        audio.play();
-        audio.addEventListener("canplay", function () {
+        audioFir.play();
+
+        //->当音频文件可以播放(出声了)的时候:canplay/canplaythrough
+        audioFir.addEventListener("canplay", function () {
             music.style.display = "block";
             music.className = "music musicMove";
-        })
+        }, false);
     }, 500);
+
+    //->移动端使用CLICK存在300MS的延迟
     music.addEventListener("click", function () {
-        if (audio.paused) {
-            audio.play();
+        //->当前是暂停的
+        if (audioFir.paused) {
+            audioFir.play();
             music.className = "music musicMove";
-            return
+            return;
         }
-        audio.pause();
+        //->当前是播放的
+        audioFir.pause();
         music.className = "music";
-    })
-})()
+    }, false);
+}();
 
 $(document).on("touchmove", function (e) {
     e.preventDefault();
