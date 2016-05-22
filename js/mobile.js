@@ -3,7 +3,25 @@ function getEle(ele) {
 }
 var main=getEle("#main");
 
-
+(function(){
+    var music = document.getElementById("music"), audio = document.getElementById("audio");
+    window.setTimeout(function () {
+        audio.play();
+        audio.addEventListener("canplay", function () {
+            music.style.display = "block";
+            music.className = "music musicMove";
+        })
+    }, 500);
+    music.addEventListener("click", function () {
+        if (audio.paused) {
+            audio.play();
+            music.className = "music musicMove";
+            return
+        }
+        audio.pause();
+        music.className = "music";
+    })
+})()
 
 $(document).on("touchmove", function (e) {
     e.preventDefault();
@@ -75,32 +93,7 @@ $(function () {
 
 
 
-(function(){
 
-
-readMusic();
-    function readMusic() {
-        var music = document.getElementById("music"), audio = document.getElementById("audio");
-        window.setTimeout(function () {
-            audio.play();
-            audio.addEventListener("canplay", function () {
-                music.style.display = "block";
-                music.className = "music musicMove";
-            })
-        }, 500);
-        music.addEventListener("click", function () {
-            if (audio.paused) {
-                audio.play();
-                music.className = "music musicMove";
-                return
-            }
-            audio.pause();
-            music.className = "music";
-        })
-    }
-
-
-})()
 
 
 
